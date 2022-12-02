@@ -4,6 +4,7 @@ public class PlayerMovementController : MonoBehaviour
 {
     #region Serialized
     [SerializeField] private Animator animator;
+    [SerializeField] private PlayerFacade playerFacade;
     #endregion
     
     #region Public
@@ -12,7 +13,6 @@ public class PlayerMovementController : MonoBehaviour
 
     #region Local
     private bool isControlable;
-    private static readonly int Run = Animator.StringToHash("Run");
     #endregion
 
     private void OnEnable()
@@ -37,6 +37,11 @@ public class PlayerMovementController : MonoBehaviour
     private void LevelStart()
     {
         isControlable = true;
-        animator.SetTrigger(Run);
+        playerFacade.AnimationController.SetTriggerAnimation("Run");
+    }
+
+    public void SetControlable(bool controlable)
+    {
+        isControlable = controlable;
     }
 }

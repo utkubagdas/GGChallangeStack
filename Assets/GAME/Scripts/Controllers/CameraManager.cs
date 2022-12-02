@@ -41,7 +41,7 @@ public class CameraManager : Controller
 
         var transform1 = _targetTransform.transform;
         successCam.Follow = transform1;
-        successCam.LookAt = transform1;
+        //successCam.LookAt = transform1;
         gameplayCam.Follow = transform1;
         failCam.Follow = transform1;
         failCam.LookAt = transform1;

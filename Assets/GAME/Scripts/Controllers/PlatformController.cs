@@ -17,6 +17,7 @@ public class PlatformController : MonoBehaviour
     private int platformCount;
     private float firstPlatformPosZ;
     private List<DynamicPlatform> platformList = new List<DynamicPlatform>();
+    private LevelFacade levelFacade;
     #endregion
     
     #region Property
@@ -28,6 +29,8 @@ public class PlatformController : MonoBehaviour
 
     private void Start()
     {
+        ControllerHub.Get<GameManager>().SetLevelStarted(false);
+        levelFacade = ControllerHub.Get<LevelController>().LevelFacade;
         firstPlatformPosZ = firstPlatform.transform.position.z;
         prefabScaleZ = platformPrefab.transform.localScale.z;
         
@@ -58,9 +61,9 @@ public class PlatformController : MonoBehaviour
             return;
         }
         platformCount++;
-        var cube = Instantiate(platformPrefab);
+        var cube = Instantiate(platformPrefab, levelFacade.transform, true);
         platformList.Add(cube);
-        
+
         if (lastPlatform != null)
         {
             var lpTransform = lastPlatform.transform;

@@ -45,6 +45,9 @@ GameObject:
   - component: {fileID: 13665286193082091}
   - component: {fileID: 1108018733062486823}
   - component: {fileID: -6803387103826111501}
+  - component: {fileID: 2259927993207841121}
+  - component: {fileID: 4330082979157627435}
+  - component: {fileID: 4301906215565801329}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -81,6 +84,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 219190110580217188}
+  playerFacade: {fileID: -6803387103826111501}
   movementSpeed: 2
 --- !u!136 &13665286193082091
 CapsuleCollider:
@@ -124,6 +128,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ae732dc844e4f941a19f5ded64d912a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerMovementController: {fileID: 3515090172430670847}
+  AnimationController: {fileID: 4330082979157627435}
+--- !u!114 &2259927993207841121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074596123688150630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5903368dcd2aad1409e30dfd72cb0376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerFacade: {fileID: -6803387103826111501}
+--- !u!114 &4330082979157627435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074596123688150630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d8d52195d2a88e48b05176cec81555a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 219190110580217188}
+--- !u!114 &4301906215565801329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074596123688150630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 550bcdb0d10d9cb439a1ede06023f609, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  starTrail: {fileID: 0}
 --- !u!1001 &1996960804344187488
 PrefabInstance:
   m_ObjectHideFlags: 0

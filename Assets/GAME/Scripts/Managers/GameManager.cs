@@ -6,7 +6,8 @@ using UnityEngine;
 public class GameManager : Controller
 {
     #region Property
-    public bool levelStarted  { get; private set; }
+
+    public bool levelStarted;
     #endregion
 
     private void Update()
@@ -16,5 +17,10 @@ public class GameManager : Controller
             levelStarted = true;
             EventManager.LevelStartEvent.Invoke();
         }
+    }
+
+    public void SetLevelStarted(bool started)
+    {
+        levelStarted = started;
     }
 }
