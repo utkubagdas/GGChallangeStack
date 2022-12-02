@@ -11823,7 +11823,7 @@ MonoBehaviour:
   platformPrefab: {fileID: 3056775136241682946, guid: 013de91e4e1f7084c9069946245509d3, type: 3}
   firstPlatform: {fileID: 7572352380085291671}
   finishLine: {fileID: 354758366362233668}
-  levelFacade: {fileID: 0}
+  fallCollider: {fileID: 590955079165330199}
   AudioController: {fileID: 2387164259070408798}
 --- !u!1001 &589183248713106193
 PrefabInstance:

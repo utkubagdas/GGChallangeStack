@@ -19,11 +19,13 @@ public class PlayerMovementController : MonoBehaviour
     private void OnEnable()
     {
         EventManager.LevelStartEvent.AddListener(LevelStart);
+        EventManager.StageStartEvent.AddListener(LevelStart);
     }
 
     private void OnDisable()
     {
         EventManager.LevelStartEvent.RemoveListener(LevelStart);
+        EventManager.StageStartEvent.RemoveListener(LevelStart);
     }
     
     void Update()
@@ -38,7 +40,7 @@ public class PlayerMovementController : MonoBehaviour
     private void LevelStart()
     {
         isControlable = true;
-        playerFacade.AnimationController.SetTriggerAnimation("Run");
+        playerFacade.AnimationController.SetTriggerAnimation(Consts.AnimatorKeywords.RUN);
     }
 
     public void SetControlable(bool controlable)

@@ -19,6 +19,7 @@ public class CameraManager : Controller
     private void OnEnable()
     {
         EventManager.LevelLoadedEvent.AddListener(SelectGameplayCam);
+        EventManager.LevelRedesignEvent.AddListener(SelectGameplayCam);
         EventManager.LevelSuccessEvent.AddListener(SelectSuccessCam);
         EventManager.LevelFailEvent.AddListener(SelectFailCam);
     }
@@ -26,6 +27,7 @@ public class CameraManager : Controller
     private void OnDisable()
     {
         EventManager.LevelLoadedEvent.RemoveListener(SelectGameplayCam);
+        EventManager.LevelRedesignEvent.RemoveListener(SelectGameplayCam);
         EventManager.LevelSuccessEvent.RemoveListener(SelectSuccessCam);
         EventManager.LevelFailEvent.RemoveListener(SelectFailCam);
     }

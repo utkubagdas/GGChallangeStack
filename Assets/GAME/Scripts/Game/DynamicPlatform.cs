@@ -6,7 +6,6 @@ public class DynamicPlatform : MonoBehaviour
     private PlatformController platformController;
     private Vector3 pos1 = new Vector3(-3, 0, 0);
     private Vector3 pos2 = new Vector3(3, 0, 0);
-    private bool canMove = true;
     private LevelFacade levelFacade;
     private bool canSpawn = true;
     private bool firstPlatform;
@@ -14,6 +13,10 @@ public class DynamicPlatform : MonoBehaviour
     
     #region Public
     public MeshRenderer MeshRenderer;
+    #endregion
+    
+    #region Property
+    public bool canMove { get; private set; }
     #endregion
     
     private void Start()
@@ -28,6 +31,7 @@ public class DynamicPlatform : MonoBehaviour
         }
         else
         {
+            canMove = true;
             transform.localScale = platformController.lastPlatform.transform.localScale;
         }
     }
@@ -37,7 +41,7 @@ public class DynamicPlatform : MonoBehaviour
         if (canMove)
         {
             var tempPos = transform.position;
-            tempPos.x = Mathf.Lerp(pos1.x, pos2.x, Mathf.PingPong(Time.time, 1.0f));
+            tempPos.x = Mathf.Lerp(pos1.x, pos2.x, Mathf.PingPong(Time.time, platformController.PlatformSpeed));
             transform.position = tempPos;
         }
     }

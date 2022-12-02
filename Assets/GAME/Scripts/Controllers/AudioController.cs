@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,9 +9,19 @@ public class AudioController : MonoBehaviour
     [SerializeField] private AudioSource AudioSource;
     #endregion
 
+    private void OnEnable()
+    {
+        EventManager.LevelSuccessEvent.AddListener(ResetAudio);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.LevelSuccessEvent.RemoveListener(ResetAudio);
+    }
+
     public void PlayAudio(float diff)
     {
-        if (diff <= 0.15f && diff >= -0.15f)
+        if (Mathf.Abs(diff) <= 0.15f)
         {
             AudioSource.pitch += 0.1f;
             AudioSource.PlayOneShot(AudioSource.clip);
@@ -20,5 +31,11 @@ public class AudioController : MonoBehaviour
             AudioSource.Stop();
             AudioSource.pitch = 0.2f;
         }
+    }
+
+    private void ResetAudio()
+    {
+        AudioSource.Stop();
+        AudioSource.pitch = 0.2f;
     }
 }

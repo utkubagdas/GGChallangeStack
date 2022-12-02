@@ -9,6 +9,7 @@ public class PlatformController : MonoBehaviour
     [SerializeField] private DynamicPlatform platformPrefab;
     [SerializeField] private DynamicPlatform firstPlatform;
     [SerializeField] private GameObject finishLine;
+    [SerializeField] private BoxCollider fallCollider;
     #endregion
     
     #region Local
@@ -18,19 +19,36 @@ public class PlatformController : MonoBehaviour
     private int platformCount;
     private float firstPlatformPosZ;
     private List<DynamicPlatform> platformList = new List<DynamicPlatform>();
-    public LevelFacade levelFacade;
+    private LevelFacade levelFacade;
+    private DynamicPlatform tempFp;
+    private GameManager gameManager;
     #endregion
     
     #region Property
     public DynamicPlatform lastPlatform { get; private set; }
     public DynamicPlatform currentPlatform { get; private set; }
-    public AudioController AudioController;
+    private float platformSpeed = 1.0f;
+    public float PlatformSpeed => platformSpeed;
     #endregion
     
+    #region Public
+    public AudioController AudioController;
+    #endregion
+
+    private void OnEnable()
+    {
+        EventManager.LevelRedesignEvent.AddListener(RedesignLevel);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.LevelRedesignEvent.RemoveListener(RedesignLevel);
+    }
 
     private void Start()
     {
-        ControllerHub.Get<GameManager>().SetLevelStarted(false);
+        gameManager = ControllerHub.Get<GameManager>();
+        gameManager.SetLevelStarted(false);
         levelFacade = ControllerHub.Get<LevelController>().LevelFacade;
         firstPlatformPosZ = firstPlatform.transform.position.z;
         prefabScaleZ = platformPrefab.transform.localScale.z;
@@ -39,13 +57,13 @@ public class PlatformController : MonoBehaviour
         
         currentPlatform = firstPlatform;
         lastPlatform = firstPlatform;
-        
+
         SpawnPlatform();
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !gameManager.levelFinished && currentPlatform.canMove)
         {
             currentPlatform.Stop();
             lastPlatform = currentPlatform;
@@ -76,6 +94,10 @@ public class PlatformController : MonoBehaviour
         else
         {
             lastPlatform = firstPlatform;
+            var transform1 = firstPlatform.transform;
+            var position = transform1.position;
+            cube.transform.position = new Vector3(position.x, position.y,
+                position.z + firstPlatform.GetComponent<Renderer>().bounds.size.z);
         }
 
         currentPlatform = cube;
@@ -99,8 +121,44 @@ public class PlatformController : MonoBehaviour
 
         maxPlatformCount = Convert.ToInt32(Mathf.Abs((firstPlatformPosZ - finishPosZ) / prefabScaleZ));
         var tempFinishPos = finishPos;
-        tempFinishPos.z = maxPlatformCount * prefabScaleZ + prefabScaleZ;
+        tempFinishPos.z = maxPlatformCount * prefabScaleZ + prefabScaleZ - firstPlatform.transform.position.z;
         finishPos = tempFinishPos;
         finishLine.transform.position = finishPos;
+    }
+
+    public void RedesignLevel()
+    {
+        for (int i = 0; i < platformList.Count; i++)
+        {
+            Destroy(platformList[i]);
+        }
+        platformList.Clear();
+        
+        tempFp = Instantiate(firstPlatform, levelFacade.transform);
+        tempFp.transform.position = new Vector3(firstPlatform.transform.position.x, firstPlatform.transform.position.y,
+            finishLine.transform.position.z + finishLine.GetComponent<MeshRenderer>().bounds.size.z);
+        firstPlatform = tempFp;
+        lastPlatform = null;
+        platformCount = 0;
+        AlignNewFinishLine();
+        SpawnPlatform();
+    }
+
+    private void AlignNewFinishLine()
+    {
+        var oldFinish = finishLine;
+        var newFinish = Instantiate(finishLine, levelFacade.transform);
+        finishLine = newFinish;
+        var finishPos = finishLine.transform.position;
+        finishPosZ = finishPos.z;
+        
+        var tempFinishPos = finishPos;
+        tempFinishPos.z = oldFinish.transform.position.z + maxPlatformCount * prefabScaleZ + prefabScaleZ + oldFinish.GetComponent<MeshRenderer>().bounds.size.z / 1.5f;
+        finishPos = tempFinishPos;
+        finishLine.transform.position = finishPos;
+
+        var tempColSize = fallCollider.size;
+        tempColSize.z += Mathf.Abs(firstPlatformPosZ - finishPosZ) + firstPlatform.MeshRenderer.bounds.size.z * 2.5f;
+        fallCollider.size = tempColSize;
     }
 }

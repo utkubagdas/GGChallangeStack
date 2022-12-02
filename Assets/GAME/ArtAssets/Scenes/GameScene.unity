@@ -1170,7 +1170,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf52c583d82f45498e4f25c16a5adb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelStarted: 0
 --- !u!1 &740800068
 GameObject:
   m_ObjectHideFlags: 0
@@ -1478,7 +1477,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1282220324}
         m_TargetAssemblyTypeName: BaseLevelController, Assembly-CSharp
-        m_MethodName: RestartLevel
+        m_MethodName: RedesignLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

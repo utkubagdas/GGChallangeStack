@@ -23,7 +23,6 @@ public class LevelController : BaseLevelController
         {
             ControllerHub.Get<CameraManager>().Init(target);
         }
-        //EventManager.LevelStartEvent.Invoke();
         SendLevelLoadedEvent(levelFacade);
     }
 }

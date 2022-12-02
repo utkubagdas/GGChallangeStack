@@ -89,7 +89,7 @@ public class BaseLevelController : Controller
 
     private void OnLevelSuccess()
     {
-        IncreaseLevelNo();
+        //IncreaseLevelNo();
     }
 
     protected void SendLevelLoadedEvent(LevelFacade facade)
@@ -109,8 +109,7 @@ public class BaseLevelController : Controller
 
     public void RedesignLevel()
     {
-        //LevelContent.LevelFacade.PlatformController.RedesignLevel();
-        //EventManager.LevelRedesignEvent.Invoke();
+        EventManager.LevelRedesignEvent.Invoke();
     }
 
     private void ResetLevel()

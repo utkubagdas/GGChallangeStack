@@ -6,22 +6,37 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
+    #region Serialized
     [SerializeField] private PlayerFacade playerFacade;
     [SerializeField] private CamRotator camRotator;
+    #endregion
+    
+    #region Local
     private LevelFacade levelFacade;
     private Transform successCamOldTransform;
     private CinemachineVirtualCamera successCam;
+    #endregion
+
+    private void OnEnable()
+    {
+        EventManager.LevelRedesignEvent.AddListener(ResetCamSettings);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.LevelRedesignEvent.RemoveListener(ResetCamSettings);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("FinishLine"))
+        if (other.CompareTag(Consts.Tags.FINISHLINE))
         {
             FinishCamAdjustments();
-            playerFacade.AnimationController.SetTriggerAnimation("Dance");
-            InvokeDelayEvent(5f, EventManager.LevelSuccessEvent);
+            playerFacade.AnimationController.SetTriggerAnimation(Consts.AnimatorKeywords.DANCE);
+            InvokeDelayEvent(2.5f, EventManager.LevelSuccessEvent);
         }
 
-        if (other.CompareTag("Fall"))
+        if (other.CompareTag(Consts.Tags.FALL))
         {
             EventManager.LevelFailEvent.Invoke();
         }
@@ -48,7 +63,6 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(delayTime);
         successEvent.Invoke();
-        ResetCamSettings();
     }
 
     private void ResetCamSettings()
