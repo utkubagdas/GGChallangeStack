@@ -3978,7 +3978,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &589183249372155419
 Transform:
   m_ObjectHideFlags: 0
@@ -11074,7 +11074,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &589183250583033171
 Transform:
   m_ObjectHideFlags: 0
@@ -11823,6 +11823,7 @@ MonoBehaviour:
   platformPrefab: {fileID: 3056775136241682946, guid: 013de91e4e1f7084c9069946245509d3, type: 3}
   firstPlatform: {fileID: 7572352380085291671}
   finishLine: {fileID: 354758366362233668}
+  levelFacade: {fileID: 0}
   AudioController: {fileID: 2387164259070408798}
 --- !u!1001 &589183248713106193
 PrefabInstance:

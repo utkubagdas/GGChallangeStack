@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Unity.VisualScripting;
+using Random = UnityEngine.Random;
 
 public class PlatformController : MonoBehaviour
 {
@@ -63,6 +63,7 @@ public class PlatformController : MonoBehaviour
         }
         platformCount++;
         var cube = Instantiate(platformPrefab, levelFacade.transform, true);
+        cube.MeshRenderer.material.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
         platformList.Add(cube);
 
         if (lastPlatform != null)

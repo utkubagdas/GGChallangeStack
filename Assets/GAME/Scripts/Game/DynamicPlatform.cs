@@ -12,6 +12,10 @@ public class DynamicPlatform : MonoBehaviour
     private bool firstPlatform;
     #endregion
     
+    #region Public
+    public MeshRenderer MeshRenderer;
+    #endregion
+    
     private void Start()
     {
         levelFacade = ControllerHub.Get<LevelController>().LevelFacade;
