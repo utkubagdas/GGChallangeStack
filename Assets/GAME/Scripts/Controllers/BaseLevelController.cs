@@ -107,6 +107,12 @@ public class BaseLevelController : Controller
         LoadLevel();
     }
 
+    public void RedesignLevel()
+    {
+        //LevelContent.LevelFacade.PlatformController.RedesignLevel();
+        //EventManager.LevelRedesignEvent.Invoke();
+    }
+
     private void ResetLevel()
     {
         foreach (Object obj in destroyOnResetList)

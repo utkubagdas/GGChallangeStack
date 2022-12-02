@@ -1,19 +1,24 @@
 using System;
 using System.Collections;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private PlayerFacade playerFacade;
+    [SerializeField] private CamRotator camRotator;
     private LevelFacade levelFacade;
+    private Transform successCamOldTransform;
+    private CinemachineVirtualCamera successCam;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("FinishLine"))
         {
             FinishCamAdjustments();
             playerFacade.AnimationController.SetTriggerAnimation("Dance");
-            InvokeDelayEvent(3f, EventManager.LevelSuccessEvent);
+            InvokeDelayEvent(5f, EventManager.LevelSuccessEvent);
         }
 
         if (other.CompareTag("Fall"))
@@ -24,17 +29,13 @@ public class PlayerController : MonoBehaviour
 
     private void FinishCamAdjustments()
     {
-        var sucCam = ControllerHub.Get<CameraManager>().successCam;
-        var camRotator = sucCam.GetComponentInChildren<CamRotator>();
-        Transform transform1;
-        (transform1 = camRotator.transform).SetParent(null);
-        sucCam.transform.SetParent(transform1);
+        successCam = ControllerHub.Get<CameraManager>().successCam;
+        successCamOldTransform = successCam.transform.parent;
         playerFacade.PlayerMovementController.SetControlable(false);
         ControllerHub.Get<CameraManager>().SelectSuccessCam();
         ControllerHub.Get<CameraManager>().successCam.Follow = null;
         ControllerHub.Get<CameraManager>().successCam.m_LookAt = null;
-        camRotator.transform.position = transform.position;
-        sucCam.transform.rotation = Quaternion.Euler(new Vector3(0, -180, 0));
+        successCam.transform.SetParent(camRotator.transform);
         camRotator.SetCanRotate(true);
     }
 
@@ -47,5 +48,15 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(delayTime);
         successEvent.Invoke();
+        ResetCamSettings();
+    }
+
+    private void ResetCamSettings()
+    {
+        successCam.transform.SetParent(successCamOldTransform);
+        successCam.Follow = transform;
+        successCam.transform.rotation = Quaternion.Euler(Vector3.zero);
+        camRotator.SetCanRotate(false);
+        camRotator.transform.rotation = Quaternion.Euler(Vector3.zero);
     }
 }

@@ -15,6 +15,7 @@ public class PlayerMovementController : MonoBehaviour
     private bool isControlable;
     #endregion
 
+    
     private void OnEnable()
     {
         EventManager.LevelStartEvent.AddListener(LevelStart);

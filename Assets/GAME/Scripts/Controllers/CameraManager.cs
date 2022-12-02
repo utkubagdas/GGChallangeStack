@@ -51,23 +51,24 @@ public class CameraManager : Controller
 
     public void SelectGameplayCam()
     {
-        gameplayCam.Priority = 11;
         failCam.Priority = 10;
         successCam.Priority = 10;
+        gameplayCam.Priority = successCam.Priority + 1;
+        
 
     }
 
     public void SelectFailCam()
     {
-        failCam.Priority = 11;
         gameplayCam.Priority = 10;
         successCam.Priority = 10;
+        failCam.Priority = gameplayCam.Priority + 1;
     }
 
     public void SelectSuccessCam()
     {
         gameplayCam.Priority = 10;
-        failCam.Priority = 9;
-        successCam.Priority = 12;
+        failCam.Priority = 10;
+        successCam.Priority = gameplayCam.Priority + 1;
     }
 }

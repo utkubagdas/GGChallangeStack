@@ -5,6 +5,7 @@ public class IngameUI : BaseUI
         EventManager.LevelLoadedEvent.AddListener(OnLevelLoaded);
         EventManager.LevelFailEvent.AddListener(OnLevelFail);
         EventManager.LevelSuccessEvent.AddListener(OnLevelSuccess);
+        EventManager.LevelRedesignEvent.AddListener(OnLevelRedesign);
     }
 
     private void OnDisable()
@@ -27,5 +28,10 @@ public class IngameUI : BaseUI
     private void OnLevelSuccess()
     {
         SetHidden();
+    }
+
+    private void OnLevelRedesign()
+    {
+        SetShow();
     }
 }

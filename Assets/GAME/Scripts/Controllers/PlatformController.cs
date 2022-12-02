@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Unity.VisualScripting;
 
 public class PlatformController : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class PlatformController : MonoBehaviour
     private int platformCount;
     private float firstPlatformPosZ;
     private List<DynamicPlatform> platformList = new List<DynamicPlatform>();
-    private LevelFacade levelFacade;
+    public LevelFacade levelFacade;
     #endregion
     
     #region Property
