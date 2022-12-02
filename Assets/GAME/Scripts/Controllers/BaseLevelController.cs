@@ -1,22 +1,24 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.Rendering;
 using Object = UnityEngine.Object;
-using Random = UnityEngine.Random;
 
 public class BaseLevelController : Controller
 {
-    #region Levels
+    #region Serialized
     [SerializeField] protected LevelContent[] allLevels;
     [SerializeField] protected LevelContent[] levelsToRepeat;
+    #endregion
+    
+    #region Property
     public LevelContent LevelContent { get; private set; }
+    #endregion
+    
+    #region Local
     private int levelNo = 1;
     private int currentLevelIndex;
     #endregion
-    
-    
+
+
 
     [SerializeField] private Transform levelParent;
 

@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class GameManager : Controller
 {
-    #region Local
-    private bool levelStarted;
+    #region Property
+    public bool levelStarted  { get; private set; }
     #endregion
 
     private void Update()

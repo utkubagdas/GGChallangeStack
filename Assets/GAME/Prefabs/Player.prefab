@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 219190110580217188}
-  movementSpeed: 5
+  movementSpeed: 2
 --- !u!136 &13665286193082091
 CapsuleCollider:
   m_ObjectHideFlags: 0

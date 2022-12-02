@@ -9,10 +9,6 @@ public class LevelController : BaseLevelController
     #region Local
     private LevelFacade levelFacade;
     #endregion
-
-    #region Static
-    public static bool LevelStarted;
-    #endregion
     protected override void LoadLevel()
     {
         base.LoadLevel();

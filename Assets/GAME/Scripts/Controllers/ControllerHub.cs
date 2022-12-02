@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class ControllerHub : PersistentSingleton<ControllerHub>
 {
-
-    [SerializeField]
-    private List<Controller> controllerList;
+    #region Serialized
+    [SerializeField] private List<Controller> controllerList;
+    #endregion
     
-
+    #region Local
     private readonly Dictionary<Type, Controller> controllers = new Dictionary<Type, Controller>();
-
+    #endregion
+    
     private void Start()
     {
         PopulateDictionary();
